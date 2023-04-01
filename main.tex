@@ -1,7 +1,7 @@
-\newcommand*{\examnumber}{123456789}
-\newcommand*{\field}{Whatever I Write About}
-\newcommand*{\tutor}{My IRR Tutor}
-\newcommand*{\supervisor}{My Project Supervisor}
+\newcommand*{\examnumber}{B135653}
+\newcommand*{\field}{Resiliant supply chains in OpenTTD}
+\newcommand*{\tutor}{Bob Fisher}
+\newcommand*{\supervisor}{Michael Herrmann}
 \newcommand*{\KEYWORDS}{\field, \supervisor, \tutor, School of Informatics, University of Edinburgh}
 
 %
@@ -65,6 +65,8 @@
 %                       providing your exam number, 
 %                       the general field of study you are considering
 %                       for your review, and name of IRR tutor
+\usepackage{floatpag}
+\floatpagestyle{empty}
 
 \begin{document}
 \begin{minipage}[b]{110mm}
@@ -94,8 +96,7 @@
 %                       Insert your abstract HERE
 %                       
 \begin{abstract}
-        The abstract is a short concise outline of your 
-        project proposal, {\bf of no more than around 100 words}.
+OpenTTD \cite{openttd} is an open source supply chain simulation computer game based on the 1990s game Transport Tycoon Deluxe. OpenTTD allows the creation of so-called AIs: computer players that build supply chains to compete with human players. This project is to create such an AI that builds supply chains with good resilience properties. The focus of this project is the game, but it will add to the body of research into real-world supply chains affected by the coronavirus (COVID-19) pandemic.
 \end{abstract}
 
 \vspace*{1cm}
@@ -123,17 +124,26 @@ Date: \today
 
 \section{Motivation}
 
-Introduce the topic of research and explain its academic and industrial context.
+\begin{figure}[h]
+\centering
+\includegraphics[width=\textwidth]{transport-tycoon-screenshot.png}
+\caption{Screenshot of an OpenTTD game showing part of a transport network with multiple industries and mechanisms of transport. One of the trains has broken down, which not only prevents its cargo from reaching its destination, but it also prevents other trains from progressing along that track; OpenTTD has built-in ways of penalising non-robustness.}
+\label{fig:network}
+\end{figure}
 
-\begin{itemize}
-    \item Establish the general subject area.
-    \item Describe the broad foundations of your study --- provide adequate background for readers.
-    \item Indicate the general scope of your project.
-    \item Provide an overview of the sections that will appear in your proposal (optional).
-    \item Engage the readers.
-\end{itemize}
+OpenTTD is an open source business simulation game based on the 1990s game Transport Tycoon Deluxe. The aim of the game is to create a business that makes money from the transport of passengers and goods from one place to another, by constructing and using a network of road vehicles, trains, planes, or ships. An example of part of such a network can be seen in Figure \ref{fig:network}.
+
+OpenTTD allows the implementation of so-called AIs, custom computer-based players that can compete with human players. Over 50 such AIs have been created. This project is to create and evaluate an AI that creates an AI that creates a network with good robustness properties. None of the 50 AIs have appear to focus on this aspect of the transport networks.
+
+In the context of creation of goods, such networks are often referred to as supply chains. The study of supply chain robustness is an active area of research, especially into effects from the coronavirus (COVID-19) pandemic.
 
 \subsection{Problem Statement}
+
+The aim of this project is to create an OpenTTD AI that constructs networks that is robust to interruptions to parts of the transport network it constructs. Figure \ref{fig:network} shows an example of such an interruption - a broken down train that blocks its track. This analagous to real-world events such as the Ever Given blocking the Suez canel, distributing global supply chains for . No existing OpenTTD has been created or studied through this lens.
+
+The evaluation of such networks. Potentially they could contribute to knowledge of real-world supply chains. For example, if the relationship between redundancy and robustness, these could lend w
+
+OpenTTD allows the player to choose what business to focus on, or what method of travel to focus on.
 
 \begin{itemize}
     \item Answer the question: ``What is the gap that needs to be filled?"
@@ -151,6 +161,8 @@ Include a justification (rationale) for the study. Be clear about what your stud
 
 \subsection{Timeliness and Novelty}
 
+
+
 Explain why the proposed research is of sufficient timeliness and novelty
 
 \subsection{Significance}
@@ -158,6 +170,10 @@ Explain why the proposed research is of sufficient timeliness and novelty
 The proposal should demonstrate the originality of your intended research. You should therefore explain why your research is important (for example, by explaining how your research builds on and adds to the current state of knowledge in the field or by setting out reasons why it is timely to research your proposed topic) and providing details of any immediate applications, including further research that might be done to build on your findings.
 
 \subsection{Feasibility}
+
+The existance of the 50 AIs suggests its not too
+
+However, 
 
 Comment on the feasibility of the research plans given its limited time frame and resources. Outline your plans for a feasibility study before starting eg major implementation work.
 
@@ -188,10 +204,15 @@ Demonstrate a knowledge and understanding of past and current work in the subjec
 
 \subsection{Risk Assessment}
 
+
+
 \subsection{Ethics}
 
+All data will be generated during the project, and will not involve people.
 
 \section{Evaluation}
+
+
 
 \begin{itemize}
     \item Describe the specific methods of data collection.
@@ -211,54 +232,43 @@ Conclude your research proposal by addressing your predicted outcomes. What are 
 
 \section{Research Plan, Milestones and Deliverables}
 
-\definecolor{barblue}{RGB}{153,204,254}
-\definecolor{groupblue}{RGB}{51,102,254}
-\definecolor{linkred}{RGB}{165,0,33} 
-
 \begin{figure}[htbp]
 \begin{ganttchart}[
-    y unit title=0.4cm,
-    y unit chart=0.5cm,
-    vgrid,hgrid,
-    x unit=1.55mm,
-    time slot format=isodate,
-    title/.append style={draw=none, fill=barblue},
-    title label font=\sffamily\bfseries\color{white},
-    title label node/.append style={below=-1.6ex},
-    title left shift=.05,
-    title right shift=-.05,
+    vgrid,inline,
+    x unit=1cm,
+    time slot format=isodate-yearmonth,
+    time slot unit=month,
     title height=1,
-    bar/.append style={draw=none, fill=groupblue},
-    bar height=.6,
-    bar label font=\normalsize\color{black!50},
+    group peaks height=0,
+    group left shift=0,
     group right shift=0,
-    group top shift=.6,
-    group height=.3,
-    group peaks height=.2,
-    bar incomplete/.append style={fill=green}
-   ]{2018-06-01}{2018-08-16}
-   \gantttitlecalendar{month=name}\\
-   \ganttbar[
-    progress=100,
-    bar progress label font=\small\color{barblue},
-    bar progress label node/.append style={right=4pt},
-    bar label font=\normalsize\color{barblue},
-    name=pp
-   ]{Background Reading}{2018-06-01}{2018-06-14} \\
-\ganttset{progress label text={}, link/.style={black, -to}}
-\ganttgroup{Work Package 1}{2018-06-14}{2018-06-30} \\
-\ganttbar[progress=4, name=T1A]{Task A}{2018-06-14}{2018-06-21} \\
-\ganttlinkedbar[progress=0]{Task B}{2018-06-21}{2018-06-30} \\
-\ganttgroup{Work Package 2}{2018-07-01}{2018-07-14} \\
-\ganttbar[progress=15, name=T2A]{Task A}{2018-07-01}{2018-07-07} \\
-\ganttlinkedbar[progress=0]{Task B}{2018-07-07}{2018-07-14} \\
-\ganttgroup{Dissertation}{2018-07-14}{2018-08-16} \\
-  \ganttbar[progress=0]{Task A}{2018-07-14}{2018-08-16}
-  \ganttset{link/.style={green}}
-  \ganttlink[link mid=.4]{pp}{T1A}
-  \ganttlink[link mid=.159]{pp}{T2A}
+    group top shift=.7,
+    bar height=.6
+   ]{2023-05}{2024-08}
+    \gantttitlecalendar{year, month=shortname} \\
+    \ganttgroup{Prep}{2023-05}{2023-06} \\
+    \ganttbar[name=dissertation, bar label font=\footnotesize]{Dissertation}{2023-05}{2023-06} \\
+    \ganttbar[name=dissertation]{Compile}{2023-05}{2023-06} \\
+    \ganttgroup{Headless mode}{2023-06}{2023-08} \\
+    \ganttbar[name=i1]{1}{2023-06}{2023-06} \\
+    \ganttbar[name=i2]{2}{2023-07}{2023-07} \ganttlink{i1}{i2} \\
+    \ganttbar[name=i3]{3}{2023-08}{2023-08} \ganttlink{i2}{i3}  \\
+    \ganttgroup{Basic AI}{2023-09}{2023-11} \\
+    \ganttbar[name=i4]{4}{2023-09}{2023-09} \ganttlink[link mid=.25]{i3}{i4} \\
+    \ganttbar[name=i5]{5}{2023-10}{2023-10} \ganttlink{i4}{i5}   \\
+    \ganttbar[name=i6]{6}{2023-11}{2023-11} \ganttlink{i5}{i6}   \\  
+    \ganttgroup{Robust AI}{2023-12}{2024-08} \\
+    \ganttbar[name=i7]{7}{2023-12}{2023-12} \ganttlink[link mid=.25]{i6}{i7}  \\
+    \ganttbar[name=i8]{8}{2024-01}{2024-01} \ganttlink{i7}{i8}  \\
+    \ganttbar[name=i9]{9}{2024-02}{2024-02} \ganttlink{i8}{i9}  \\
+    \ganttbar[name=i10]{10}{2024-03}{2024-03} \ganttlink{i9}{i10}  \\
+    \ganttbar[name=i11]{11}{2024-04}{2024-04} \ganttlink{i10}{i11}  \\
+    \ganttbar[name=i12]{12}{2024-05}{2024-05} \ganttlink{i11}{i12}  \\
+    \ganttbar[name=i13]{13}{2024-06}{2024-06} \ganttlink{i12}{i13}  \\
+    \ganttbar[name=i14]{14}{2024-07}{2024-07} \ganttlink{i13}{i14}  \\
+    \ganttbar[name=i15]{15}{2024-08}{2024-08} \ganttlink{i14}{i15}  
 \end{ganttchart}
-\caption[Project Gantt chart]{Gantt Chart of the activities defined for this project.}
+\caption[Project Gantt chart]{Gantt Chart of the activities defined for this project. This project will be undertaken on a part time basis and in a highly iterative way. Each iteration will contain reading, development, evaluation, and writing up. Each will result in complete project, albeit with limited scope.}
 \label{fig:gantt}
 \end{figure}
 
@@ -285,7 +295,7 @@ Conclude your research proposal by addressing your predicted outcomes. What are 
         \hline
         \textbf{Deliverable} & \textbf{Week} & \textbf{Description} \\
         \hline
-        $D_1$ & 6 & Software tool for \ldots\\
+        $D_1$ & 6 & Headless mode for to OpenTTD \ldots\\
         $D_2$ & 8 & Evaluation report on \ldots\\
         $D_3$ & 10 & Dissertation \\
         \hline
