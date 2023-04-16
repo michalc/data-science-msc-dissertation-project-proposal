@@ -152,29 +152,33 @@ The second phase of the project has more of a vague objective - to determine pro
 
 \subsection{Timeliness and Novelty}
 
-While being based on a 1990s computer game, OpenTTD is actively developed and developed. For example, four releases have been made so far in 2023 \cite{openttdReleases}. The study of supply chain resilience is is an increasing area of research, especially following the coronavirus (COVID-19) pandemic that started in 2020 and the 2021 Suez Canal obstruction by the container ship Ever Given. The results of an informal analysis of published research into supply chain resilience into is shown in Figure \ref{fig:supplychainresiliance}.
+While being based on a 1990s computer game, OpenTTD is actively developed and developed. For example, four releases have been made so far in 2023 \cite{openttdReleases}. The study of supply chain resilience is is an increasing area of research, especially following the coronavirus (COVID-19) pandemic that started in 2020 and the 2021 Suez Canal obstruction by the container ship Ever Given. The results of an informal analysis of published research indexed by Web of Science supply chain resilience into is shown in Figure \ref{fig:supplychainresiliance} showing how supply chain research, and especially supply chain research linking with the COVID-19 pandemic, is currently an increasing area of research.
 
 \begin{figure}[h]
 \centering
-\begin{gnuplot}[terminal=cairolatex]
+\begin{gnuplot}[terminal=cairolatex,terminaloptions={size 6,3}]
+set tics font ",5"
 set ylabel 'Number of publications'
 set xlabel 'Year'
 set style data histograms
 set style histogram rowstacked
 set style fill pattern border -1
 set xtics nomirror
-set key samplen 5
+set ytics 100
 set key invert
 set key left top
+set grid ytics
+set xtics font ", 5"
+set ytics font ", 5"
 plot 'supply-chain-resiliance-research.dat' \
-    using 2 t "Not containing COVID-19", \
-    '' using 3:xticlabels(1) t "Containing COVID-19"
+    using 2 t "  Without COVID-19", \
+    '' using 3:xticlabels(1) t "With COVID-19" lc rgb '#999999'
 \end{gnuplot}
-\caption{How the number of publications on the topic "supply chain resilaince" has increased between 2014 and 2022.}
+\caption{The number of publications indexed by Web of Science matching the topic "supply chain resiliance" between 2014 and 2022, showing the split between publications with the topic COVID-19, and publications without. Data retrieved in April 2023.}
 \label{fig:supplychainresiliance}
 \end{figure}
 
-In terms of novelty, the first phase of the project solves a clear deficiency in OpenTTD - repeatedly running experiments with a parameterised AI for example is a manual process that the phase seeks to solve. In the second phase, OpenTTD does not appear to have been used in the study of resilient transport networks or supply chains.
+In terms of novelty, the first phase of the project solves a reported deficiency in OpenTTD - repeatedly running experiments with a parameterised AI for example is a manual process that the phase seeks to solve. In the second phase, OpenTTD does not appear to have been used in the study of resilient transport networks or supply chains.
 
 \subsection{Significance}
 
