@@ -1,5 +1,5 @@
 \newcommand*{\examnumber}{B135653}
-\newcommand*{\field}{Resiliant supply chains in OpenTTD}
+\newcommand*{\field}{Reproducible research and \\resilient supply chains in OpenTTD}
 \newcommand*{\tutor}{Bob Fisher}
 \newcommand*{\supervisor}{Michael Herrmann}
 \newcommand*{\KEYWORDS}{\field, \supervisor, \tutor, School of Informatics, University of Edinburgh}
@@ -20,6 +20,7 @@
 % For Gantt chart
 \usepackage{pgfgantt}
 \usepackage{xcolor}
+\usepackage{gnuplottex}
 \usepackage[utf8]{inputenc}
 
 \definecolor{hyperlinkColor}{HTML}{0D3B68}
@@ -96,7 +97,7 @@
 %                       Insert your abstract HERE
 %                       
 \begin{abstract}
-OpenTTD \cite{openttd} is an open source supply chain simulation computer game based on the 1990s game Transport Tycoon Deluxe. OpenTTD allows the creation of so-called AIs: computer players that build supply chains to compete with human players. This project is to create such an AI that builds supply chains with good resilience properties. The focus of this project is the game, but it will add to the body of research into real-world supply chains affected by the coronavirus (COVID-19) pandemic.
+OpenTTD \cite{openttd} is an open source real time strategy (RTS) supply chain simulation computer game that allows the creation of so-called AIs - computer players that build supply chains to compete with human players. This project is two-fold - extend OpenTTD so it can be used for reproducible experiments into such AIs, and to use these extensions to investigate the relationships between robustness and other properties of the supply chains. This adds to the body of research into supply chains affected by events such as coronavirus (COVID-19) pandemic or the 2021 Suez Canal obstruction by the container ship Ever Given.
 \end{abstract}
 
 \vspace*{1cm}
@@ -131,104 +132,160 @@ Date: \today
 \label{fig:network}
 \end{figure}
 
-OpenTTD is an open source business simulation game based on the 1990s game Transport Tycoon Deluxe. The aim of the game is to create a business that makes money from the transport of passengers and goods from one place to another, by constructing and using a network of road vehicles, trains, planes, or ships. An example of part of such a network can be seen in Figure \ref{fig:network}.
+OpenTTD is an open source business simulation game based on the 1990s game Transport Tycoon Deluxe. The aim of the game is to create a business that makes money from the transport of passengers and goods from one place to another, by constructing and using a network of road vehicles, trains, planes, or ships - also known as supply chains. An example of part of such a network can be seen in Figure \ref{fig:network}.
 
-OpenTTD allows the implementation of so-called AIs, custom computer-based players that can compete with human players. Over 50 such AIs have been created. This project is to create and evaluate an AI that creates an AI that creates a network with good robustness properties. None of the 50 AIs have appear to focus on this aspect of the transport networks.
+OpenTTD allows the implementation of so-called AIs, custom computer-based players that create their own supply chains to compete with human players. Over 50 such AIs have been created \cite{openttdAIs}. However, since OpenTTD is primarily a computer game rather than a tool for research, it is lacking in components for running reproducible experiments with such AIs and extracting data from them \cite{openttdNoHeadless}. The first aim of this project is to extend OpenTTD to allow such reproducible experiments.
 
-In the context of creation of goods, such networks are often referred to as supply chains. The study of supply chain robustness is an active area of research, especially into effects from the coronavirus (COVID-19) pandemic.
+The second aim of this project is to use OpenTTD and any extensions to construct an AI that allows the investigation of the links between robustness of such supply chains and other properties of the networks. While the focus of this project is OpenTTD, results could be compared with investigations of real-world supply chains, and so adds to the body of research of such supply chains, and so could be used to inform government and corporate policies.
 
 \subsection{Problem Statement}
 
-The aim of this project is to create an OpenTTD AI that constructs networks that is robust to interruptions to parts of the transport network it constructs. Figure \ref{fig:network} shows an example of such an interruption - a broken down train that blocks its track. This analagous to real-world events such as the Ever Given blocking the Suez canel, distributing global supply chains for . No existing OpenTTD has been created or studied through this lens.
+The first problem is the problem than OpenTTD is not suitable to run reproducible experiments. The work in this project is to change OpenTTD to make it possible to do so. For example, after initial investigation, it appears that OpenTTD does not support a mode to run the game at full speed without also running a graphical interface, and does not support the automated extraction of metrics or other details of the supply chains created.
 
-The evaluation of such networks. Potentially they could contribute to knowledge of real-world supply chains. For example, if the relationship between redundancy and robustness, these could lend w
-
-OpenTTD allows the player to choose what business to focus on, or what method of travel to focus on.
-
-\begin{itemize}
-    \item Answer the question: ``What is the gap that needs to be filled?"
-    and/or ``What is the problem that needs to be solved?"
-    \item State the problem clearly early in a paragraph.
-    \item Limit the variables you address in stating your problem.
-    \item Consider bordering the problem as a question.
-\end{itemize}
+The second problem is to answer the question \emph{In the game OpenTTD, what are properties of supply chains that are associated with resilience?}. This is a broad question - it will not be able to be answered conclusively in the time available. However, it should be able to be answered in some limited extent, for example by focusing on highly simplified worlds, a single transport mechanism, or simple supply chains of goods, or being robust to very limited events. Exactly what limitations will be applied will be chosen during the project.
 
 \subsection{Research Hypothesis and Objectives}
 
-Identify the overall aims of the project and the individual measurable objectives against which you would wish the outcome of the work to be assessed. Clearly spell out any research hypothesis you are following.
+Ideally, to make OpenTTD useful for reproducible research, any changes will be merged into its source code. And these changes will make it straightforward, so in a very low number of commands or configuration changes, to run experiments over a range of scenarios or AIs. Such steps can be measured - measuring the number of steps or decision points a researcher must take in order to run a set of experiments to produce some research. The ideal is a single step - a researcher running a single command, and results are output.
 
-Include a justification (rationale) for the study. Be clear about what your study will not address.
+The second phase of the project has more of a vague objective - to determine properties of supply chains that offer some robustness.
 
 \subsection{Timeliness and Novelty}
 
+While being based on a 1990s computer game, OpenTTD is actively developed and developed. For example, four releases have been made so far in 2023 \cite{openttdReleases}. The study of supply chain resilience is is an increasing area of research, especially following the coronavirus (COVID-19) pandemic that started in 2020 and the 2021 Suez Canal obstruction by the container ship Ever Given. The results of an informal analysis of published research into supply chain resilience into is shown in Figure \ref{fig:supplychainresiliance}.
 
+\begin{figure}[h]
+\centering
+\begin{gnuplot}[terminal=cairolatex]
+set ylabel 'Number of publications'
+set xlabel 'Year'
+set style data histograms
+set style histogram rowstacked
+set style fill pattern border -1
+set xtics nomirror
+set key samplen 5
+set key invert
+set key left top
+plot 'supply-chain-resiliance-research.dat' \
+    using 2 t "Not containing COVID-19", \
+    '' using 3:xticlabels(1) t "Containing COVID-19"
+\end{gnuplot}
+\caption{How the number of publications on the topic "supply chain resilaince" has increased between 2014 and 2022.}
+\label{fig:supplychainresiliance}
+\end{figure}
 
-Explain why the proposed research is of sufficient timeliness and novelty
+In terms of novelty, the first phase of the project solves a clear deficiency in OpenTTD - repeatedly running experiments with a parameterised AI for example is a manual process that the phase seeks to solve. In the second phase, OpenTTD does not appear to have been used in the study of resilient transport networks or supply chains.
 
 \subsection{Significance}
 
 The proposal should demonstrate the originality of your intended research. You should therefore explain why your research is important (for example, by explaining how your research builds on and adds to the current state of knowledge in the field or by setting out reasons why it is timely to research your proposed topic) and providing details of any immediate applications, including further research that might be done to build on your findings.
 
+The headless mode of OpenTTD is itself valuable. Even without the AI, this is a contribution - it will others to reproduce any results in this project, and allow further work to be done in a reproducible way.
+
 \subsection{Feasibility}
 
-The existance of the 50 AIs suggests its not too
+The fact that OpenTTD is open source allow changes to be made. and the 50 existing AIs suggest its possible to make open AIs using a variety of algorithms. I'm an experienced software engineer with experience of working in unknown codebases, knowing several programming languages, and so it should be feasible for me to make changes to the source code if necessary, and to write an AI in the available time. This makes this project feasible.
 
-However, 
-
-Comment on the feasibility of the research plans given its limited time frame and resources. Outline your plans for a feasibility study before starting eg major implementation work.
+However, the project is ambition introduces risks however, which are detailed in section \ref{riskassessment} along with their mitigations.
 
 \subsection{Beneficiaries}
 
-Describe how the research will benefit other researchers in the field and in related disciplines. What will be done to ensure that they can benefit? 
+The first phase of the project should benefit researchers wanting to use OpenTTD for experiments. The second phase. In all cases code will be published to GitHub, with clear instructions on how to use it in order to reproduce results. In fact, the ideal of the first phase is to allow researches to reproduce any results in a single command.
 
+What sort of qualities do networks have that are robust?
+
+Describe how the research will benefit other researchers in the field and in related disciplines. What will be done to ensure that they can benefit? 
 
 \section{Background and Related Work}
 
-Demonstrate a knowledge and understanding of past and current work in the subject area, including relevant references like this \cite{template}.
+Describe some existing openttd AIs \cite{openttd}.
 
+Things done in repdocubility, why not suitable
+
+Something to do with robust supply chains?
 
 \section{Programme and Methodology}
 
-\begin{itemize}
-    \item Detail the methodology to be used in pursuit of the research and justify this choice.
-    \item Describe your contributions and novelty and where you
-    will go beyond the state-of-the-art (new methods, new tools,
-    new data, new insights, new proofs,\ldots)
-    \item Describe the programme of work, indicating the research to be undertaken and the milestones that can be used to measure its progress.
-    \item Where suitable define work packages and define the dependencies
-    between these work packages. WPs and their dependencies should be
-    shown in the Gantt chart in the research plan.
-    \item Explain how the project will be managed.
-    \item State the limitations of your research.
-\end{itemize}
+This project will be done in 3 phases that I'm calling Preparation, Reproducibility, and Robustness.
+
+\begin{enumerate}
+\addtocounter{enumi}{-1}
+    \item \textbf{Preparation}
+
+    There will be an initial short preparation phase of this project is make sure I have a dissertation template - will be virtually empty at the beginning, and that I can compile OpenTTD, and run a very basic AI. If I'm unable to do any of these steps, this must be discovered very early on in order to change the later plan.
+
+    As discussed later in this proposal, it is deliberate to construct the dissertation at the beginning rather than a final writing up stage.
+    
+    \item \textbf{Reproducibility}
+
+    The next phase of the project focuses on making any required changes to OpenTTD in order to support reproducible research. This itself has two parts - a basic headless mode, and the construction of a naive AI developed using the headless mode. The purpose of the second part is to refine the headless mode in terms of usage and output, and to make sure that constructing an AI with certain properties is feasible in the time available.
+    
+    \item \textbf{Robustness}
+
+    The final phase is to use the results of the previous phases to construct an AI that can be trained to make networks that are resiliant, and compare them against AIs not trained to be resiliant.
+    
+\end{enumerate}
+
+In terms of methodology, this project will be undertaken in a highly iterative way - tight cycles of development and evaluation. There is suitable since this is an ambitious project with a number of unknowns. This will include maintaining a (mostly) ready to submit dissertation.
 
 \subsection{Risk Assessment}
+\label{riskassessment}
 
+Ideally any changes to OpenTTD would be merged into its codebase, and so maintained indefinitely. However, there is no guarantee of this. Although OpenTTD is actively maintained, PRs remain open from 2019, and its maintainers are under no obligation to merge them or any PRs submitted as part of this project. However, there are migitations to this.
 
+\begin{itemize}
+    \item Changes will be submitted as early as possible in the project
+    \item I'll submit changes that are as small as possible, and so more likely to be merged
+    \item Continue to work as though changes will not be merged - the remainder of the project does not need to wait and will still output value without it.
+    \item Reflection on what PRs are and are not merged is helpful in it of itself
+\end{itemize}
+
+Overall, the biggest risk overall is running out of time without any output - software projects are overdue more often than they are on time. From my own experience as a software engineer, the project where the engineer is not familiar with the domain have the highest risk of this. This is such a project - I am not familiar with the OpenTTD codebase.
+
+To mitigate this risk, I leverage the fact that while the submission deadline is fixed, what is submitted by that deadline is not, allowing me to take a multi-scale agile/iterative approach to the project, adjusting its aim as it progresses. Specifically:
+
+\begin{itemize}
+    \item Each phase/iteration is a de-facto feasibility study for the next phase
+    \item Each phase/iteration results in value in terms of novelty, timeliness, and significance
+    \item Each phase/iteration results will have reasonably complete project at all times
+\end{itemize}
+
+To reduce the need to trade-off ambition against leaving time to write up, this includes the deliverable dissertation itself. The dissertation will be started at the beginning of the project rather than the end, and maintained as the project progresses. Figure \ref{fig:gantt} shows how this can look in the style of a more traditional gantt chart, and a summary of these risks are in Table \ref{fig:risks}.
+
+\begin{table}[htbp]
+    \begin{center}
+        \begin{tabular}{|l|l|l|l|}
+        \hline
+        \textbf{Phases} & \textbf{Risk} & \textbf{Mitigations} & \textbf{Residual risk} \\
+        \hline
+        1 & Merges upstream take time & Initiate early in project & Low \\
+        1 & No merges upstream & Small frequent changes & Low \\
+          &                    & Can maintain fork & \\
+        1, 2 & Any phase too time-consuming & Expand previous phases & Low \\
+        \hline
+        \end{tabular} 
+    \end{center}
+    \caption[Project milestones]{Risks and mitigations}
+    \label{fig:risks}
+\end{table}
 
 \subsection{Ethics}
 
-All data will be generated during the project, and will not involve people.
+All data will be generated during the project through simulations. Specifically, there will be no data collected from individuals.
+
+What about reflecting if PRs where merged or not?? People do this...
+
+However, there are actions that any AI could be deemed as unethical if applied to the real world. For example, it is possible that an AI destroys buildings while making the network. A set of metrics can be extracted by the first phase of the project.
 
 \section{Evaluation}
 
+The first phase of the project, making it easier for OpenTTD will somewhat subjectively evaluated by myself. However, this is mitigated by an objective component - the number of steps required to be taken in order to reproduce research conducted with OpenTTD.
 
-
-\begin{itemize}
-    \item Describe the specific methods of data collection.
-    \item Explain how you intent to analyse and interpret the results.
-\end{itemize}
+The second phase of the project. The analysis will be done XXX and intepreseted XX.
 
 \section{Expected Outcomes}
 
-Conclude your research proposal by addressing your predicted outcomes. What are you hoping to prove/disprove? Indicate how you envisage your research will contribute to debates and discussions in your particular subject area:
-
-\begin{itemize}
-    \item How will your research make an original contribution to knowledge?
-    \item How might it fill gaps in existing work? 
-    \item How might it extend understanding of particular topics?
-\end{itemize}
-
+At a minimum, the first phase of the project should make it easier to run experiments in OpenTTD. The second phase would use this output, and refine it, and ideally add to the understanding of supply chains.
 
 \section{Research Plan, Milestones and Deliverables}
 
@@ -246,14 +303,15 @@ Conclude your research proposal by addressing your predicted outcomes. What are 
     bar height=.6
    ]{2023-05}{2024-08}
     \gantttitlecalendar{year, month=shortname} \\
-    \ganttgroup{Prep}{2023-05}{2023-06} \\
+    \ganttgroup{Prep.}{2023-05}{2023-06} \\
     \ganttbar[name=dissertation, bar label font=\footnotesize]{Dissertation}{2023-05}{2023-06} \\
     \ganttbar[name=dissertation]{Compile}{2023-05}{2023-06} \\
-    \ganttgroup{Headless mode}{2023-06}{2023-08} \\
+    \ganttgroup{Reproducibility}{2023-06}{2023-11} \\
+    \ganttgroup[group height=.1]{Headless mode}{2023-06}{2023-08} \\
     \ganttbar[name=i1]{1}{2023-06}{2023-06} \\
     \ganttbar[name=i2]{2}{2023-07}{2023-07} \ganttlink{i1}{i2} \\
     \ganttbar[name=i3]{3}{2023-08}{2023-08} \ganttlink{i2}{i3}  \\
-    \ganttgroup{Basic AI}{2023-09}{2023-11} \\
+    \ganttgroup[group height=.1]{Naive AI}{2023-09}{2023-11} \\
     \ganttbar[name=i4]{4}{2023-09}{2023-09} \ganttlink[link mid=.25]{i3}{i4} \\
     \ganttbar[name=i5]{5}{2023-10}{2023-10} \ganttlink{i4}{i5}   \\
     \ganttbar[name=i6]{6}{2023-11}{2023-11} \ganttlink{i5}{i6}   \\  
