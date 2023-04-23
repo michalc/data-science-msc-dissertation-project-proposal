@@ -136,7 +136,7 @@ OpenTTD is an open source business simulation game based on the 1990s game Trans
 
 OpenTTD allows the implementation of so-called AIs, custom computer-based players that create their own supply chains to compete with human players. Over 50 such AIs have been created \cite{openttdAIs}. However, since OpenTTD is primarily a computer game rather than a tool for research, it is lacking in components for running reproducible experiments with such AIs and extracting data from them \cite{openttdNoHeadless}. The first aim of this project is to extend OpenTTD to allow such reproducible experiments.
 
-The second aim of this project is to use OpenTTD and any extensions to construct an AI that allows the investigation of the links between resilience of such supply chains and other properties of the networks. While the focus of this project is OpenTTD, results could be compared with investigations of real-world supply chains, and so adds to the body of research of such supply chains, and so could be used to inform government and corporate policies.
+The second aim of this project is to use OpenTTD and any extensions to construct an AI that allows the investigation of the links between resilience of such supply chains and other properties of the networks. And specifically, to help answer the question of when is it appropriate to build resilience into such networks. While the focus of this project is OpenTTD, results could be compared with investigations of real-world supply chains, and so adds to the body of research of such supply chains, and so could be used to inform government and corporate policies.
 
 \subsection{Problem Statement}
 
@@ -197,7 +197,7 @@ The direct answer to the research question of the second phase is significant on
 
 \subsection{Feasibility}
 
-The fact that OpenTTD is open source allow changes to be made. and the 50 existing AIs suggest its possible to make OpenTTD AIs using a variety of algorithms. I'm an experienced software engineer with experience of working in unknown codebases, knowing several programming languages. Thus it should be feasible for me to make changes to the source code if necessary, and to write an AI in the available time. I'm also familiar with the pattern of creating my own tools and using them - which is what this project is. These facts makes this project feasible.
+The fact that OpenTTD is open source allow changes to be made, and the 50 existing AIs suggest its possible to make OpenTTD AIs using a variety of algorithms. I'm an experienced software engineer with experience of working in unknown codebases, knowing several programming languages. Thus it should be feasible for me to make changes to the source code if necessary, and to write an AI in the available time. I'm also familiar with the pattern of creating my own tools and using them - which is what this project is. These facts makes this project feasible.
 
 \subsection{Beneficiaries}
 
@@ -217,23 +217,13 @@ OpenTTD has a challenging computational environment:
 
 \item Even if it were theoretically computationally feasible to consider all possible actions, OpenTTD limits the number of computations an AI can take in any given amount of time.
 
-\item A field of play that is dynamic even if the AI chooses to take no action - you cannot perfectly apply any insights calculated from previous steps because the map may have changed.
+\item The field of play is dynamic even if the AI chooses to take no action - calculated insights cannot be perfectly applied to the future because the map may have changed. This includes during construction of network components.
 
-\item Specifically enacting a plan, such as creating a rail network, takes time - the world may change during its construction. Decisions must be made whether to carry on, change, or abandon any construction.
+\item There are multiple scales involved - a higher level scale of deciding which goods to delivery where, but also a lower level as to where to place stations.
 
 \end{enumerate}
 
-In existing AIs, these challenges been tackled using... PUT SOME IN
-
-Describe some existing openttd AIs. Decision trees? Put in some existing algorithms in Background, and comment on them?
-
-Things done in reproducibility, why not suitable
-
-There do seem to have been a previous effort to make changes in OpenTTD in terms of reproducibility \cite{shen_rtsenv_2011}. However, as has already been discussed earlier, the specific details of these have not been found. Also, this project appears more focused on the scalability, memory, and CPU usage then any in-game properties.
-
-Something to do with robust supply chains? What's been looked into there?
-
-Specifically maybe similuating supply chains? How is robustness tested? At the very least - say this is to be discovered during the project
+Existing OpenTTD AIs attempt to overcome these issues in various ways. Very briefly, PathZilla \cite{pathzilla} uses Delaunay Triangulation combined with choosing randomly between large towns. Thee trAIns \cite{rios_trains_2009} uses a modified version of the A* algorithm to plan routes between destinations. 
 
 \section{Programme and Methodology}
 
@@ -283,7 +273,7 @@ To mitigate this risk, I leverage the fact that while the submission deadline is
 
 To reduce the need to trade-off ambition against leaving time to write up, the iterations include the deliverable dissertation itself. The dissertation will be started at the beginning of the project and maintained as the project progresses. This is a Continuous Delivery approach, and is often used when delivering web applications, for example \cite{chen_continuous_2015}. However, this approach has also been successfully used to include the delivery of the written component of doctoral dissertations \cite{alipui_agile_nodate}, so is applicable here. This approach also allows for doing less - if the project is enough for a good dissertation at any point, I can stop - this would be consistent with some of the results of \cite{alipui_agile_nodate} where some doctoral dissertations are submitted in a relatively short amount of time.
 
-Figure \ref{fig:gantt} shows how this process can look in the style of a more traditional Gantt chart, and a summary of these risks are in Table \ref{fig:risks}.
+Figure \ref{fig:gantt} shows a Gantt chart of this process, and a summary of these risks are in Table \ref{fig:risks}.
 
 \begin{table}[htbp]
     \begin{center}
@@ -409,7 +399,7 @@ The discussed plan of work can be seen summarised in Figure \ref{fig:gantt}, wit
     \label{table:deliverables}
 \end{table}
 
-
+\pagebreak
 %                Now build the reference list
 \bibliographystyle{unsrt}   % The reference style
 %                This is plain and unsorted, so in the order
