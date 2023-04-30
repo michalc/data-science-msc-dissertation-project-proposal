@@ -22,6 +22,7 @@
 \usepackage{xcolor}
 \usepackage{gnuplottex}
 \usepackage[utf8]{inputenc}
+\usepackage{fancyvrb}
 
 \definecolor{hyperlinkColor}{HTML}{0D3B68}
 \usepackage[shrink=20,stretch=20]{microtype}
@@ -112,7 +113,7 @@ Date: \today
 
 %                                               Through page and setup 
 %                                               fancy headings
-\setcounter{page}{1}                            % Set page number to 1
+                            % Set page number to 1
 \footruleheight{1pt}
 \headruleheight{1pt}
 \lfoot{\small School of Informatics}
@@ -140,27 +141,19 @@ The second aim of this project is to use OpenTTD and any extensions to construct
 
 \subsection{Problem Statement}
 
-The first problem is the problem than OpenTTD is not suitable to run reproducible experiments. For example, after an initial investigation, it appears that OpenTTD does not support a mode to run the game at full speed without also running a graphical interface, and does not support the automated extraction of metrics or other details of the supply chains created.
+The first problem is the problem than OpenTTD is not suitable to run reproducible experiments. While OpenTTD does have a dedicated server mode for multiplayer games, it is throttled to a speed for human players to interact with - it does no run at full speed. In addition, while OpenTTD does have the ability to autosave games, these are of a custom binary format and it is non trivial to extract metrics or topological details of the supply chains created.
 
-The second problem is to answer the question \emph{When is it worth building in resilience into supply chains?} This is a broad question - it will not be able to be answered conclusively in the time available. However, it should be able to be answered in some limited extent, for example by focusing on highly simplified worlds, a single transport mechanism, or simple supply chains of goods, or considering resilience only with respect to very limited events. Exactly what limitations will be applied will be chosen during the project.
+The second problem is to answer the question \emph{When is it worth building in resilience into supply chains?} This is a broad question - it will not be able to be answered conclusively in the time available. However, it should be able to be answered in some limited extent, for example by focusing on highly simplified worlds, a single transport mechanism, simple supply chains of goods, or considering resilience only with respect to very limited events. Exactly what limitations will be applied will be chosen during the project.
 
 \subsection{Research Hypothesis and Objectives}
 
-Ideally, to make OpenTTD useful for reproducible research, any changes will be merged into its public repository \cite{openttdRepo}. And these changes will make it straightforward, so in a very low number of commands or configuration changes, to run experiments over a range of scenarios or AIs. While OpenTTD is a game, players can play alone - and the AI playing alone affords reproducible experiments. For example, modifications could be made to make the following possible to run 5 simulations.
+Ideally, to make OpenTTD useful for reproducible research, any changes will be merged into its public repository \cite{openttdRepo}. These changes will make it straightforward, so in a very low number of commands or configuration changes, to run experiments over a range of scenarios or AIs. While OpenTTD is a game, players can play alone - and the AI playing alone affords reproducible experiments. OpenTDD has some of the configuration required, for example its \verb+-t+ command line argument can set a start year and \verb+-G+ can set a seed for the random number generator. However, it does not seem possible to set an end year after which OpenTTD will exit. It also had a  \verb+-D+ dedicated mode which runs the game without a graphical interface, but it's extremely throttled for human players to interact with which makes it unfeasible to use for more than a handful of experiments. Its \verb+-q+ argument can extract information from saved games to a text format, but the output is trivial. The objective of the first phase of the project will be to add suitable command line arguments to overcome these problems.
 
-\begin{verbatim}
-./openttd
-    --headless --random-seeds 1,2,3,4,5 \
-    --start-year 1950 --end-year 2050 \
-    --ai my-custom-ai \
-    --output-folder my-output
-\end{verbatim}
-
-The second phase of the project, determining when its worth to build in resilience into networks, is more complex and open-ended. As an example, in OpenTTD you often have to choose between sending raw materials to a factory already in use with infrastructure already in place, or sending to another factory. The latter is more expensive, but offers protections against the factories closing down. In this case the objective would be to answer the question on when it is worth that investment.
+The second phase of the project, determining when its worth to build in resilience into networks, is more complex and open-ended. As an example, in OpenTTD you often have to choose between sending raw materials to a factory already in use with infrastructure already in place, or sending to another factory. The latter is more expensive, but offers protections against factories closing down. In this case the objective would be to answer the question on when it is worth that investment.
 
 \subsection{Timeliness and Novelty}
 
-While being based on a 1990s computer game, OpenTTD is actively developed and developed. For example, four releases have been made so far in 2023 \cite{openttdReleases}. And the study of supply chain resilience is an active area of research, especially following the coronavirus (COVID-19) pandemic that started in 2020 and the 2021 Suez Canal obstruction by the container ship Ever Given. A systematic literature survey on research into supply chains and COVID-19 \cite{moosavi_supply_2022} showed that "resilience" was the top related keyword. However, the survey did not attempt to track changes over time. The results of a brief and informal analysis of published research indexed by Web of Science supply chain resilience is shown in Figure \ref{fig:supplychainresiliance} showing how supply chain research, and especially supply chain research mentioning the COVID-19 pandemic, is not just active, but an increasing area of research.
+While being based on a 1990s computer game, OpenTTD is actively developed and developed. For example, four releases have been made so far in 2023 \cite{openttdReleases}. And the study of supply chain resilience is an active area of research, especially following the coronavirus (COVID-19) pandemic that started in 2020 and the 2021 Suez Canal obstruction by the container ship Ever Given. A systematic literature survey on research into supply chains and COVID-19 \cite{moosavi_supply_2022} showed that ``resilience" was the top related keyword. However, the survey did not attempt to track changes over time. The results of a brief and informal analysis of published research indexed by Web of Science supply chain resilience is shown in Figure \ref{fig:supplychainresiliance} showing how supply chain research, and especially supply chain research mentioning the COVID-19 pandemic, is not just active, but an increasing area of research.
 
 \begin{figure}[h]
 \centering
@@ -182,7 +175,7 @@ plot 'supply-chain-resiliance-research.dat' \
     using 2 t "  Without COVID-19", \
     '' using 3:xticlabels(1) t "With COVID-19" lc rgb '#999999'
 \end{gnuplot}
-\caption{The number of publications indexed by Web of Science matching the topic "supply chain resiliance" between 2014 and 2022, showing the split between publications with the topic COVID-19, and publications without. Data retrieved April 2023.}
+\caption{The number of publications indexed by Web of Science matching the topic ``supply chain resilience" between 2014 and 2022, showing the split between publications with the topic COVID-19, and publications without. Data retrieved April 2023.}
 \label{fig:supplychainresiliance}
 \end{figure}
 
@@ -192,16 +185,16 @@ In terms of novelty, the first phase of the project solves the reported \cite{op
 
 The output of the first phase of the project, the headless mode of OpenTTD, is by itself valuable. Problems in existing research using OpenTTD include inconsistent time experiments are run for as in \cite{rios_trains_2009}, very few repetitions per case, such a 1 repetition per case in \cite{wisniewski_artificial}, and experiments using customised-but-unpublished versions of OpenTTD for research purposes in \cite{shen_rtsenv_2011, konijnendijk2015mcts}. The first phase will allow research to be easily done using OpenTTD in an automated and reproducible way that addresses all of these problems. 
 
-The direct answer to the research question of the second phase is significant only in the  niche world of OpenTTD - its players and AI designers. However, the consequences of real-world supply chain disruptions can be serious: addressing this has been described as an "urgent need" \cite{moosavi_supply_2022}. Thus, any details that could be applicable to real-world supply chains could be significant.
+The direct answer to the research question of the second phase is significant only in the  niche world of OpenTTD - its players and AI designers. However, the consequences of real-world supply chain disruptions can be serious: addressing this has been described as an ``urgent need" \cite{moosavi_supply_2022}. Thus, any details that could be applicable to real-world supply chains could be significant.
 
 
 \subsection{Feasibility}
 
-The fact that OpenTTD is open source allow changes to be made, and the 50 existing AIs suggest its possible to make OpenTTD AIs using a variety of algorithms. I'm an experienced software engineer with experience of working in unknown codebases, knowing several programming languages. Thus it should be feasible for me to make changes to the source code if necessary, and to write an AI in the available time. I'm also familiar with the pattern of creating my own tools and using them - which is what this project is. These facts makes this project feasible.
+The fact that OpenTTD is open source allow changes to be made, and the 50 existing AIs suggest it's possible to make OpenTTD AIs using a variety of algorithms. I'm an experienced software engineer knowing several programming languages with experience of working in unknown codebases. Thus it is feasible for me to make changes to the source code, and to write an AI in the available time. OpenTTD is lightweight, and its AIs have limited computation available as discussed later, therefore resources are unlikely to require more than a standard laptop.
 
 \subsection{Beneficiaries}
 
-The first phase of the project should benefit researchers using OpenTTD for experiments, such as in \cite{rios_trains_2009, wisniewski_artificial, shen_rtsenv_2011}. Code will be published so it is openly available, with clear instructions on how to use it in order to reproduce results. The ideal output of the first phase is to allow researches to reproduce any results in a single step, with any code changes merged into OpenTTD, so it will be ideally maintained for the lifetime of OpenTTD and more easily discoverable by other researchers.
+The first phase of the project should benefit researchers using OpenTTD for experiments, such as in \cite{rios_trains_2009, wisniewski_artificial, shen_rtsenv_2011}. Code will be published so it is openly available, with clear instructions on how to use it in order to reproduce results. The ideal output of the first phase is to allow researchers to reproduce any results in a single step, with any code changes merged into OpenTTD, so it will be ideally maintained for the lifetime of OpenTTD and easily discoverable by other researchers.
 
 The second phase of the project, the beneficiaries would be players and writers of OpenTTD AIs, researchers into supply chains, and potentially, anyone that can be affected by issues in supply chains.
 
@@ -223,7 +216,9 @@ OpenTTD has a challenging computational environment:
 
 \end{enumerate}
 
-Existing OpenTTD AIs attempt to overcome these issues in various ways. Very briefly, PathZilla \cite{pathzilla} uses Delaunay Triangulation combined with choosing randomly between large towns. Thee trAIns \cite{rios_trains_2009} uses a modified version of the A* algorithm to plan routes between destinations. 
+Existing OpenTTD AIs attempt to overcome these issues in various ways. Very briefly, PathZilla \cite{pathzilla} uses Delaunay Triangulation combined with randomly choosing between towns and industries. The trAIns \cite{rios_trains_2009}  AI uses a modified version of the A* algorithm to plan routes between destinations. The AI in \cite{bijlsma2014evolving} uses a genetic algorithm approach to construct/choose rules to make its decisions. Any of these methods may be used to validate the first phase, or, if suitably modified, to generate results in the second.
+
+While no publications have been found linking OpenTTD with supply chain resilience, supply chain resilience itself is well studied field. However, as of 2020 there does not appear to be an accepted definition of supply chain resilience, and studies on measuring it are ``scarce" \cite{doi:10.1080/00207543.2020.1785034}. A reasonable working definition is taken from \cite{kiers_which_2022}: ``Resilience is the ability of a system to detect, adapt, and react to disturbances to restore its original structure and functions" - a non-trivial concept to measure. Choosing appropriate metrics will be done during the second phase of the project.
 
 \section{Programme and Methodology}
 
@@ -243,11 +238,11 @@ This project will be done primarily in 2 phases that I'm calling Reproducibility
 
     The second phase is to use the results of the previous phases to construct a parameterisable AI that can be used to investigate the relationship between properties of the networks it creates, and resilience of those networks.
 
-    The exact form of this AI will depend on discoveries during the previous phases. For example, rail networks are particular interesting due to break downs blocking networks as in Figure \ref{fig:network}, but are more difficult to construct.
+    The exact form of this AI will depend on discoveries during the previous phases. For example, rail networks are particularly interesting due to break downs blocking networks as in Figure \ref{fig:network}, but are  difficult to construct due to signalling and de-facto one-way tracks.
     
 \end{enumerate}
 
-In terms of methodology, this project will be undertaken in a highly iterative way - tight cycles of development and evaluation. There is suitable since this is an ambitious project with a number of unknowns, mostly around how long it will take to do things. The cycles will include maintaining a ready to submit dissertation, as detailed in the next section.
+In terms of methodology, this project will be undertaken in a highly iterative way - tight cycles of development and evaluation. This is suitable since this is an ambitious project with a number of unknowns, mostly around how long activities will take. The cycles will include maintaining a ready to submit dissertation, as detailed in the next section.
 
 \subsection{Risk Assessment}
 \label{riskassessment}
@@ -271,7 +266,7 @@ To mitigate this risk, I leverage the fact that while the submission deadline is
     \item Each phase/iteration will result in a reasonably complete project at all times.
 \end{itemize}
 
-To reduce the need to trade-off ambition against leaving time to write up, the iterations include the deliverable dissertation itself. The dissertation will be started at the beginning of the project and maintained as the project progresses. This is a Continuous Delivery approach, and is often used when delivering web applications, for example \cite{chen_continuous_2015}. However, this approach has also been successfully used to include the delivery of the written component of doctoral dissertations \cite{alipui_agile_nodate}, so is applicable here. This approach also allows for doing less - if the project is enough for a good dissertation at any point, I can stop - this would be consistent with some of the results of \cite{alipui_agile_nodate} where some doctoral dissertations are submitted in a relatively short amount of time.
+To reduce the need to trade-off ambition against leaving time to write up, the iterations include the deliverable dissertation itself. The dissertation will be started at the beginning of the project and maintained as the project progresses. This is a Continuous Delivery approach, and is often used when delivering web applications, for example \cite{chen_continuous_2015}. However, this approach has also been successfully used to include the delivery of the written component of doctoral dissertations \cite{alipui_agile_nodate}, so can be applied here. This approach also allows for doing less - if the project is enough for a good dissertation at any point, I can stop - this would be consistent with some of the results of \cite{alipui_agile_nodate} where some doctoral dissertations are submitted in a relatively short amount of time.
 
 Figure \ref{fig:gantt} shows a Gantt chart of this process, and a summary of these risks are in Table \ref{fig:risks}.
 
@@ -311,7 +306,7 @@ The first phase of the project provides value, but it also exists to ensure that
 
 The first phase of the project, making it easier for OpenTTD will be mostly qualitatively evaluated. Initially by myself, but ideally by OpenTTD maintainers who will decide whether to merge in any changes. There will also be an objective component - the number of manual steps required to be taken in order to reproduce research conducted with OpenTTD should be able to be counted before and after any changes.
 
-The second phase of the project will use data extracted from OpenTTD, made possible from the first phase. For example tracking profit and graph-theoretical properties of the networks.
+The second phase of the project will use data extracted from OpenTTD, made possible from the first phase. For example tracking profit and topological properties of the networks.
 
 \section{Expected Outcomes}
 
@@ -319,7 +314,7 @@ The outcome of the first phase of the project is that is will be easier to run r
 
 \section{Research Plan, Milestones and Deliverables}
 
-The discussed plan of work can be seen summarised in Figure \ref{fig:gantt}, with the milestones in Table \ref{table:milestones}, and deliverables in Table \ref{table:deliverables}. The project has approximately 16 months available, on a part time basis. Timelines are constructed based on my expeience as a software engineer.
+The discussed plan of work can be seen summarised in Figure \ref{fig:gantt}, with the milestones in Table \ref{table:milestones}, and deliverables in Table \ref{table:deliverables}. The project has approximately 16 months available, on a part time basis. Timelines are constructed based on my experience as a software engineer.
 
 \begin{figure}[htbp]
 \begin{ganttchart}[
@@ -335,13 +330,12 @@ The discussed plan of work can be seen summarised in Figure \ref{fig:gantt}, wit
     bar height=.6
    ]{2023-05}{2024-08}
     \gantttitlecalendar{year, month=shortname} \\
+    \ganttbar[name=dissertation, bar label font=\footnotesize]{Dissertation}{2023-05}{2024-08} \\
     \ganttgroup{0 - Prep.}{2023-05}{2023-06} \\
-    \ganttbar[name=dissertation, bar label font=\footnotesize]{Dissertation}{2023-05}{2023-06} \\
     \ganttbar[name=compile, bar label font=\footnotesize]{Compilation}{2023-05}{2023-06} \\
     \ganttgroup{1 - Reproducibility}{2023-07}{2023-12} \\
     \ganttgroup[group height=.1]{Headless mode}{2023-07}{2023-09} \\
-    \ganttbar[name=i1]{1}{2023-07}{2023-07} \ganttlink[link mid=.166666]{compile}{i1} 
- \ganttlink[link mid=.375]{dissertation}{i1} \\
+    \ganttbar[name=i1]{1}{2023-07}{2023-07} \ganttlink[link mid=.166666]{compile}{i1} \\
     \ganttbar[name=i2]{2}{2023-08}{2023-08} \ganttlink{i1}{i2} \\
     \ganttbar[name=i3]{3}{2023-09}{2023-09} \ganttlink{i2}{i3}  \\
     \ganttgroup[group height=.1]{Naive AI}{2023-10}{2023-12} \\
@@ -359,7 +353,7 @@ The discussed plan of work can be seen summarised in Figure \ref{fig:gantt}, wit
     \ganttbar[name=i13]{13}{2024-07}{2024-07} \ganttlink{i12}{i13}  \\
     \ganttbar[name=i14]{14}{2024-08}{2024-08} \ganttlink{i13}{i14}
 \end{ganttchart}
-\caption[Project Gantt chart]{Gantt Chart of the activities defined for this project. This project will be undertaken on a part time basis and in a highly iterative way. Each iteration will contain reading, development, evaluation, and writing up. Each will result in complete project, albeit with limited scope.}
+\caption[Project Gantt chart]{Gantt Chart of the activities defined for this project. This project will be undertaken on a part time basis and in a highly iterative way with at least 14 iterations. Each iteration will result in a complete project, but of limited scope, to be decided during each iteration.}
 \label{fig:gantt}
 \end{figure}
 
