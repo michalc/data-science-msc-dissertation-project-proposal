@@ -1,0 +1,21 @@
+name: Release
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build PDF
+        run: |
+          docker run --rm -v $PWD:/workdir -e TEXINPUTS=/workdir//: texlive/texlive:TL2022-historic pdflatex -output-directory /workdir -jobname michal-charemza-openttd-dissertation-proposal /workdir/main.tex
+      - name: Upload PDF
+        uses: actions/upload-artifact@v3
+        with:
+          name: michal-charemza-openttd-dissertation-proposal
+          path: |
+            michal-charemza-openttd-dissertation-proposal.pdf
